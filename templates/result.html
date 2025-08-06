@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction Results</title>
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+    body {
+      background: #0f2027;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .summary-card {
+      background: #1e2d3b;
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px #00d4ff;
+    }
+
+    .summary-card h2 {
+      color: #00ffcc;
+    }
+
+    .value {
+      color: #ffda77;
+    }
+
+    #plot, #bar-chart {
+      margin-top: 40px;
+    }
+
+    .recommendations {
+      display: flex;
+      gap: 20px;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    .car-card {
+      background: #1e2d3b;
+      padding: 15px;
+      border-radius: 10px;
+      width: 30%;
+      box-shadow: 0 0 10px rgba(255,255,255,0.2);
+    }
+
+    .car-card h4 {
+      margin: 0;
+      color: #00ffcc;
+    }
+
+    .confetti {
+      animation: pop 1s ease-in-out;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container confetti">
+    <div class="summary-card">
+      <h2>✅ Prediction Result</h2>
+      <p>{{ prediction_text }}</p>
+    </div>
+
+    <!-- 📊 Interactive Plot -->
+    <div id="plot"></div>
+
+    <!-- 📊 Comparison Bar Chart -->
+    <div id="bar-chart"></div>
+
+    <!-- 🚗 Recommended Cars -->
+    <div class="recommendations">
+      <div class="car-card">
+        <h4>Toyota Camry 2020</h4>
+        <p>Price: ₹14,50,000</p>
+      </div>
+      <div class="car-card">
+        <h4>Honda Civic 2021</h4>
+        <p>Price: ₹13,70,000</p>
+      </div>
+      <div class="car-card">
+        <h4>Hyundai Elantra 2019</h4>
+        <p>Price: ₹12,30,000</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🧠 Plotly Scripts -->
+  <script>
+    // Plot: Price vs. Car Age
+    var age = [1, 2, 3, 4, 5, 6, 7];
+    var predicted = {{ prediction_text.split('₹')[-1].replace(')', '')|replace(',', '')|float if prediction_text else 0 }};
+    var price = age.map(a => predicted + (Math.random() * 100000 * (8 - a)) - 250000);
+
+    var trace1 = {
+      x: age,
+      y: price,
+      type: 'scatter',
+      mode: 'lines+markers',
+      marker: { color: '#00d4ff' },
+      line: { width: 3 },
+      name: 'Predicted INR Price'
+    };
+
+    Plotly.newPlot('plot', [trace1], {
+      title: '📈 Price vs. Car Age (approx)',
+      paper_bgcolor: '#0f2027',
+      plot_bgcolor: '#0f2027',
+      font: { color: 'white' }
+    });
+
+    // Bar Chart: Similar Model Prices
+    var models = ['Camry', 'Civic', 'Elantra', 'F-150', 'X5'];
+    var prices = models.map(() => predicted + (Math.random() * 500000 - 250000));
+
+    var trace2 = {
+      x: models,
+      y: prices,
+      type: 'bar',
+      marker: { color: '#ffda77' },
+      name: 'Estimated Prices'
+    };
+
+    Plotly.newPlot('bar-chart', [trace2], {
+      title: '🚘 Similar Models Price Comparison',
+      paper_bgcolor: '#0f2027',
+      plot_bgcolor: '#0f2027',
+      font: { color: 'white' }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vehicle Price Predictor</title>
+  <style>
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 32px;
+      color: #00d4ff;
+    }
+
+    form {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      color: #00d4ff;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background-color: #f0f8ff;
+      color: #333;
+      font-size: 14px;
+    }
+
+    button {
+      background-color: #00d4ff;
+      color: #000;
+      padding: 12px;
+      border: none;
+      width: 100%;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background-color: #00a3cc;
+    }
+
+    h3 {
+      margin-top: 25px;
+      color: #00ffb3;
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h2>🚗 Vehicle Price Predictor</h2>
+  <form action="/predict" method="post">
+    <label for="make">Make:</label>
+    <select name="make" required>
+      <option value="">Select Make</option>
+      <option value="Toyota">Toyota</option>
+      <option value="Honda">Honda</option>
+      <option value="Ford">Ford</option>
+      <option value="BMW">BMW</option>
+      <option value="Hyundai">Hyundai</option>
+    </select>
+
+    <label for="model">Model:</label>
+    <select name="model" required>
+      <option value="">Select Model</option>
+      <option value="Camry">Camry</option>
+      <option value="Civic">Civic</option>
+      <option value="F-150">F-150</option>
+      <option value="X5">X5</option>
+      <option value="Elantra">Elantra</option>
+    </select>
+
+    <label for="engine">Engine:</label>
+    <select name="engine" required>
+      <option value="">Select Engine</option>
+      <option value="2.0L I4">2.0L I4</option>
+      <option value="2.5L I4">2.5L I4</option>
+      <option value="3.0L V6">3.0L V6</option>
+    </select>
+
+    <label for="cylinders">Cylinders:</label>
+    <select name="cylinders" required>
+      <option value="">Select</option>
+      <option value="4">4</option>
+      <option value="6">6</option>
+      <option value="8">8</option>
+    </select>
+
+    <label for="fuel">Fuel Type:</label>
+    <select name="fuel" required>
+      <option value="">Select Fuel</option>
+      <option value="Gasoline">Gasoline</option>
+      <option value="Diesel">Diesel</option>
+      <option value="Electric">Electric</option>
+    </select>
+
+    <label for="mileage">Mileage (km):</label>
+    <input type="number" name="mileage" required>
+
+    <label for="transmission">Transmission:</label>
+    <select name="transmission" required>
+      <option value="">Select Transmission</option>
+      <option value="Automatic">Automatic</option>
+      <option value="Manual">Manual</option>
+    </select>
+
+    <label for="trim">Trim:</label>
+    <select name="trim" required>
+      <option value="">Select Trim</option>
+      <option value="SE">SE</option>
+      <option value="LE">LE</option>
+      <option value="XLE">XLE</option>
+    </select>
+
+    <label for="body">Body Type:</label>
+    <select name="body" required>
+      <option value="">Select Body</option>
+      <option value="Sedan">Sedan</option>
+      <option value="SUV">SUV</option>
+      <option value="Hatchback">Hatchback</option>
+    </select>
+
+    <label for="doors">Number of Doors:</label>
+    <select name="doors" required>
+      <option value="">Select</option>
+      <option value="2">2</option>
+      <option value="4">4</option>
+    </select>
+
+    <label for="exterior_color">Exterior Color:</label>
+    <select name="exterior_color" required>
+      <option value="">Select Color</option>
+      <option value="Black">Black</option>
+      <option value="White">White</option>
+      <option value="Red">Red</option>
+      <option value="Gray">Gray</option>
+    </select>
+
+    <label for="interior_color">Interior Color:</label>
+    <select name="interior_color" required>
+      <option value="">Select Color</option>
+      <option value="Black">Black</option>
+      <option value="Beige">Beige</option>
+      <option value="Gray">Gray</option>
+    </select>
+
+    <label for="drivetrain">Drivetrain:</label>
+    <select name="drivetrain" required>
+      <option value="">Select Drivetrain</option>
+      <option value="Front-wheel Drive">Front-wheel Drive</option>
+      <option value="Rear-wheel Drive">Rear-wheel Drive</option>
+      <option value="All-wheel Drive">All-wheel Drive</option>
+    </select>
+
+    <label for="car_age">Car Age:</label>
+    <input type="number" name="car_age" required>
+
+    <button type="submit">Predict Price</button>
+  </form>
+
+  <h3>{{ prediction_text }}</h3>
+</body>
+</html>
