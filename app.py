@@ -6,10 +6,12 @@ import joblib
 app = Flask(__name__)
 
 # Load model components
-model = joblib.load('C:/Users/tanvi/PycharmProjects/PythonProject/model.pkl')
-scaler = joblib.load('C:/Users/tanvi/PycharmProjects/PythonProject/scaler.pkl')
-encoders = joblib.load('C:/Users/tanvi/PycharmProjects/PythonProject/encoders.pkl')
-feature_names = joblib.load('C:/Users/tanvi/PycharmProjects/PythonProject/feature_names.pkl')
+import os
+model = joblib.load(os.path.join(os.path.dirname(__file__), 'model.pkl'))
+scaler = joblib.load(os.path.join(os.path.dirname(__file__), 'scaler.pkl'))
+
+encoders = joblib.load(os.path.join(os.path.dirname(__file__), 'encoders.pkl'))
+feature_names = joblib.load(os.path.join(os.path.dirname(__file__), 'feature_names.pkl'))
 
 # Home page route
 @app.route('/')
